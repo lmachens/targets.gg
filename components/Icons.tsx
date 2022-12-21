@@ -1,8 +1,43 @@
-import { IconReportSearch, IconSettings } from "@tabler/icons";
+import {
+  IconReportSearch,
+  IconSettings,
+  IconFidgetSpinner,
+  IconChevronLeft,
+  IconMenu,
+  IconX,
+  IconAlphabetLatin,
+  IconArrowsMove,
+  IconBrush,
+  IconCircle,
+  IconPointer,
+  IconSquare,
+  IconUser,
+  IconDotsVertical,
+  IconTrashX,
+  IconArrowRampRight,
+  IconPlus,
+  IconAlertTriangle,
+} from '@tabler/icons';
 
 const Icons = {
   discover: IconReportSearch,
   settings: IconSettings,
+  spinner: IconFidgetSpinner,
+  chevronLeft: IconChevronLeft,
+  menu: IconMenu,
+  close: IconX,
+  text: IconAlphabetLatin,
+  move: IconArrowsMove,
+  brush: IconBrush,
+  circle: IconCircle,
+  select: IconPointer,
+  rectangle: IconSquare,
+  user: IconUser,
+  dotsVertical: IconDotsVertical,
+  trash: IconTrashX,
+  tactic: IconArrowRampRight,
+  add: IconPlus,
+  warning: IconAlertTriangle,
 };
 
 export default Icons;

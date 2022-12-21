@@ -1,26 +1,19 @@
-"use client";
+'use client';
 
-import {
-  IconAlphabetLatin,
-  IconArrowsMove,
-  IconBrush,
-  IconCircle,
-  IconPointer,
-  IconSquare,
-} from "@tabler/icons";
-import ActionIcon from "components/ActionIcon";
-import ColorSwatch from "components/ColorSwatch";
-import { fabric } from "fabric";
-import { DEFAULT_COLORS } from "lib/colors";
-import { useEffect, useState } from "react";
-import ShapeAction from "./ShapeAction";
+import ActionIcon from 'components/ActionIcon';
+import ColorSwatch from 'components/ColorSwatch';
+import Icons from 'components/Icons';
+import { fabric } from 'fabric';
+import { DEFAULT_COLORS } from 'lib/colors';
+import { useEffect, useState } from 'react';
+import ShapeAction from './ShapeAction';
 
-import { useWhiteboardStore } from "./store";
+import { useWhiteboardStore } from './store';
 
 export default function Controls() {
   const { canvas, tool, setTool, color, setColor } = useWhiteboardStore();
   const [background, setBackground] = useState<string | null>(null);
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
 
   useEffect(() => {
     if (!canvas) {
@@ -28,11 +21,11 @@ export default function Controls() {
     }
     if (background) {
       canvas.setBackgroundImage(background, canvas.renderAll.bind(canvas), {
-        originX: "center",
-        originY: "center",
+        originX: 'center',
+        originY: 'center',
       });
     } else {
-      const image = new fabric.Image("");
+      const image = new fabric.Image('');
       canvas.setBackgroundImage(image, canvas.renderAll.bind(canvas));
     }
   }, [background, canvas]);
@@ -41,7 +34,7 @@ export default function Controls() {
     <ActionIcon
       key={key}
       onClick={() => setColor(key)}
-      variant={key === color ? "filled" : "subtle"}
+      variant={key === color ? 'filled' : 'subtle'}
     >
       <ColorSwatch color={values[6]} />
     </ActionIcon>
@@ -72,58 +65,58 @@ export default function Controls() {
       <h4>Tools</h4>
       <div>
         <ActionIcon
-          onClick={() => setTool("Move")}
-          variant={tool === "Move" ? "filled" : "subtle"}
+          onClick={() => setTool('Move')}
+          variant={tool === 'Move' ? 'filled' : 'subtle'}
           title="Move"
         >
-          <IconArrowsMove />
+          <Icons.move />
         </ActionIcon>
         <ActionIcon
-          onClick={() => setTool("Select")}
-          variant={tool === "Select" ? "filled" : "subtle"}
+          onClick={() => setTool('Select')}
+          variant={tool === 'Select' ? 'filled' : 'subtle'}
           title="Select"
         >
-          <IconPointer />
+          <Icons.select />
         </ActionIcon>
         <ActionIcon
-          onClick={() => setTool("Brush")}
-          variant={tool === "Brush" ? "filled" : "subtle"}
+          onClick={() => setTool('Brush')}
+          variant={tool === 'Brush' ? 'filled' : 'subtle'}
           title="Brush"
         >
-          <IconBrush />
+          <Icons.brush />
         </ActionIcon>
         <ActionIcon
-          onClick={() => setTool("Rectangle")}
-          variant={tool === "Rectangle" ? "filled" : "subtle"}
+          onClick={() => setTool('Rectangle')}
+          variant={tool === 'Rectangle' ? 'filled' : 'subtle'}
           title="Rectangle"
         >
-          <IconSquare />
+          <Icons.rectangle />
         </ActionIcon>
         <ActionIcon
-          onClick={() => setTool("Circle")}
-          variant={tool === "Circle" ? "filled" : "subtle"}
+          onClick={() => setTool('Circle')}
+          variant={tool === 'Circle' ? 'filled' : 'subtle'}
           title="Circle"
         >
-          <IconCircle />
+          <Icons.circle />
         </ActionIcon>
         <ActionIcon
-          onClick={() => setTool("Text")}
-          variant={tool === "Text" ? "filled" : "subtle"}
+          onClick={() => setTool('Text')}
+          variant={tool === 'Text' ? 'filled' : 'subtle'}
           title="Text"
         >
-          <IconAlphabetLatin />
+          <Icons.text />
         </ActionIcon>
       </div>
       <h4>Shapes</h4>
       <div>
         <ShapeAction
           title="Covenant"
-          onClick={() => setTool("/new_world/covenant.webp")}
+          onClick={() => setTool('/new_world/covenant.webp')}
           imgSrc="/new_world/covenant.webp"
         />
         <ShapeAction
           title="Marauder"
-          onClick={() => setTool("/new_world/marauder.webp")}
+          onClick={() => setTool('/new_world/marauder.webp')}
           imgSrc="/new_world/marauder.webp"
         />
       </div>

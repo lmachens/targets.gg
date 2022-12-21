@@ -7,12 +7,12 @@ import { cn } from 'lib/utils';
 import { toast } from 'components/Toast';
 import Icons from 'components/Icons';
 
-type PostCreateButtonProps = React.HTMLAttributes<HTMLButtonElement>;
+type TacticCreateButtonProps = React.HTMLAttributes<HTMLButtonElement>;
 
-export default function PostCreateButton({
+export default function TacticCreateButton({
   className,
   ...props
-}: PostCreateButtonProps) {
+}: TacticCreateButtonProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 

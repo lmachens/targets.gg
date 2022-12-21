@@ -1,38 +1,99 @@
 'use client';
 
-import Whiteboard from 'components/editor/Whiteboard';
-import Controls from 'components/editor/Controls';
 import { useForm } from 'react-hook-form';
-import { postPatchSchema } from 'lib/validations/tactic';
+import { tacticPatchSchema } from 'lib/validations/tactic';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type z from 'zod';
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Icons from 'components/Icons';
 import type { Tactic } from '@prisma/client';
+import {
+  initializeWhiteboard,
+  initializeWindowEvents,
+  loadData,
+  switchTool,
+} from 'lib/whiteboard';
+import type { Tool } from 'types';
+import ToolRadio from './ToolRadio';
+import ColorRadio from './ColorRadio';
+import ShapeRadio from './ShapeRadio';
+import { toast } from 'components/Toast';
+import { useRouter } from 'next/navigation';
 
-type FormData = z.infer<typeof postPatchSchema>;
+type FormData = z.infer<typeof tacticPatchSchema>;
 
 interface EditorProps {
   tactic: Pick<Tactic, 'id' | 'title' | 'content' | 'published'>;
 }
 export default function Editor({ tactic }: EditorProps) {
   const { register, handleSubmit } = useForm<FormData>({
-    resolver: zodResolver(postPatchSchema),
+    resolver: zodResolver(tacticPatchSchema),
+    defaultValues: {
+      title: tactic.title ?? '',
+    },
   });
   const [isSaving, setIsSaving] = useState(false);
+  const ref = useRef<fabric.Canvas>();
+  const [tool, setTool] = useState<Tool>('Brush');
+  const [color, setColor] = useState('cyan');
+  const router = useRouter();
+
+  const whiteboardRef = useCallback(
+    (container: HTMLDivElement) => {
+      const canvas = initializeWhiteboard(container);
+      const removeEvents = initializeWindowEvents(canvas);
+
+      const body = tacticPatchSchema.parse(tactic);
+      if (body.content) {
+        loadData(canvas, body.content);
+      }
+      switchTool(canvas, tool, color);
+
+      ref.current = canvas;
+
+      return () => {
+        canvas.clear();
+        removeEvents();
+      };
+    },
+    [tactic]
+  );
+
+  useEffect(() => {
+    switchTool(ref.current!, tool, color);
+  }, [tool, color]);
 
   async function onSubmit(data: FormData) {
     setIsSaving(true);
-    console.log({
-      gameClassId: '',
-      title: '',
-      background: 'background',
-      data: JSON.stringify('canvas'),
+
+    const response = await fetch(`/api/tactics/${tactic.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: data.title,
+        content: JSON.stringify(ref.current),
+      }),
     });
-    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     setIsSaving(false);
+
+    if (!response?.ok) {
+      return toast({
+        title: 'Something went wrong.',
+        message: 'Your tactoc was not saved. Please try again.',
+        type: 'error',
+      });
+    }
+
+    router.refresh();
+
+    return toast({
+      message: 'Your tactic has been saved.',
+      type: 'success',
+    });
   }
 
   return (
@@ -49,7 +110,9 @@ export default function Editor({ tactic }: EditorProps) {
                 Back
               </>
             </Link>
-            <p className="text-sm text-slate-600">Draft</p>
+            <p className="text-sm text-slate-600">
+              {tactic.published ? 'Published' : 'Draft'}
+            </p>
           </div>
           <button
             type="submit"
@@ -61,9 +124,18 @@ export default function Editor({ tactic }: EditorProps) {
             <span>Save</span>
           </button>
         </div>
-        <div className="prose prose-stone mx-auto w-[800px]">
-          <Whiteboard />
-          <Controls />
+        <div className="mx-auto w-[800px]">
+          <input
+            autoFocus
+            type="text"
+            className="w-full bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white text-5xl font-bold focus:outline-none"
+            placeholder="Tactic title"
+            {...register('title')}
+          />
+          <ToolRadio value={tool} onChange={setTool} />
+          <ColorRadio value={color} onChange={setColor} />
+          <ShapeRadio value={tool} onChange={setTool} />
+          <div ref={whiteboardRef} className="min-h-[500px]" />
         </div>
       </div>
     </form>

@@ -1,18 +1,24 @@
-import './globals.css'
+import "./globals.css";
+import { Work_Sans as FontSans } from "@next/font/google";
+import { cn } from "lib/utils";
+import type { ReactNode } from "react";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
+    <html
+      lang="en"
+      className={cn(
+        "bg-white dark:bg-zinc-900 font-sans text-zinc-900 dark:text-white",
+        fontSans.variable
+      )}
+    >
       <head />
-      <body>{children}</body>
+      <body className="min-h-screen">{children}</body>
     </html>
-  )
+  );
 }

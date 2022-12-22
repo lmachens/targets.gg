@@ -16,7 +16,6 @@ import {
   switchTool,
 } from 'lib/whiteboard';
 import type { Tool } from 'types';
-import { Game } from 'types';
 import ToolRadio from './ToolRadio';
 import ColorRadio from './ColorRadio';
 import ShapeRadio from './ShapeRadio';
@@ -130,6 +129,7 @@ export default function Editor({ tactic }: EditorProps) {
             <button
               onClick={() => {
                 ref.current!.clear();
+                switchBackgroundImage(ref.current!, backgroundImage);
               }}
             >
               Clear

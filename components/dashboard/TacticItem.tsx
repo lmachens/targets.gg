@@ -26,7 +26,6 @@ export default function TacticItem({ tactic }: TacticItemProps) {
         </div>
       </div>
       <TacticOperations tactic={{ id: tactic.id, title: tactic.title }} />
-      {/* <TacticDeleteButton tactic={{ id: tactic.id, title: tactic.title }} /> */}
     </div>
   );
 }

@@ -286,3 +286,13 @@ export function switchTool(canvas: fabric.Canvas, tool: Tool, color: string) {
       break;
   }
 }
+
+export function switchBackgroundImage(
+  canvas: fabric.Canvas,
+  backgroundImage: string
+) {
+  canvas.setBackgroundImage(backgroundImage, canvas.renderAll.bind(canvas), {
+    originX: 'center',
+    originY: 'center',
+  });
+}

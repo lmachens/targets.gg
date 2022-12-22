@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { tacticPatchSchema } from 'lib/validations/tactic';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type z from 'zod';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import Icons from 'components/Icons';
 import type { Tactic } from '@prisma/client';
@@ -12,14 +12,19 @@ import {
   initializeWhiteboard,
   initializeWindowEvents,
   loadData,
+  switchBackgroundImage,
   switchTool,
 } from 'lib/whiteboard';
 import type { Tool } from 'types';
+import { Game } from 'types';
 import ToolRadio from './ToolRadio';
 import ColorRadio from './ColorRadio';
 import ShapeRadio from './ShapeRadio';
 import { toast } from 'components/Toast';
 import { useRouter } from 'next/navigation';
+import { getGame, POPULAR_GAMES } from 'lib/games';
+import GameRadio from './GameRadio';
+import BackgroundImageRadio from './BackgroundImageRadio';
 
 type FormData = z.infer<typeof tacticPatchSchema>;
 
@@ -35,34 +40,43 @@ export default function Editor({ tactic }: EditorProps) {
   });
   const [isSaving, setIsSaving] = useState(false);
   const ref = useRef<fabric.Canvas>();
+  const [gameClassId, setGameClassId] = useState(POPULAR_GAMES[0].gameClassId);
+  const game = useMemo(
+    () => getGame(gameClassId) ?? POPULAR_GAMES[0],
+    [gameClassId]
+  );
+  const [backgroundImage, setBackgroundImage] = useState(
+    game.backgroundImages[0].value
+  );
   const [tool, setTool] = useState<Tool>('Brush');
   const [color, setColor] = useState('cyan');
   const router = useRouter();
 
-  const whiteboardRef = useCallback(
-    (container: HTMLDivElement) => {
-      const canvas = initializeWhiteboard(container);
-      const removeEvents = initializeWindowEvents(canvas);
+  const whiteboardRef = useCallback((container: HTMLDivElement) => {
+    const canvas = initializeWhiteboard(container);
+    const removeEvents = initializeWindowEvents(canvas);
 
-      const body = tacticPatchSchema.parse(tactic);
-      if (body.content) {
-        loadData(canvas, body.content);
-      }
-      switchTool(canvas, tool, color);
+    const body = tacticPatchSchema.parse(tactic);
+    if (body.content) {
+      loadData(canvas, body.content);
+    }
+    switchTool(canvas, tool, color);
 
-      ref.current = canvas;
+    ref.current = canvas;
 
-      return () => {
-        canvas.clear();
-        removeEvents();
-      };
-    },
-    [tactic]
-  );
+    return () => {
+      canvas.clear();
+      removeEvents();
+    };
+  }, []);
 
   useEffect(() => {
     switchTool(ref.current!, tool, color);
   }, [tool, color]);
+
+  useEffect(() => {
+    switchBackgroundImage(ref.current!, backgroundImage);
+  }, [backgroundImage]);
 
   async function onSubmit(data: FormData) {
     setIsSaving(true);
@@ -113,6 +127,13 @@ export default function Editor({ tactic }: EditorProps) {
             <p className="text-sm text-slate-600">
               {tactic.published ? 'Published' : 'Draft'}
             </p>
+            <button
+              onClick={() => {
+                ref.current!.clear();
+              }}
+            >
+              Clear
+            </button>
           </div>
           <button
             type="submit"
@@ -124,7 +145,7 @@ export default function Editor({ tactic }: EditorProps) {
             <span>Save</span>
           </button>
         </div>
-        <div className="mx-auto w-[800px]">
+        <div className="mx-auto w-[800px] grid gap-5">
           <input
             autoFocus
             type="text"
@@ -132,10 +153,16 @@ export default function Editor({ tactic }: EditorProps) {
             placeholder="Tactic title"
             {...register('title')}
           />
+          <GameRadio value={gameClassId} onChange={setGameClassId} />
+          <BackgroundImageRadio
+            game={game}
+            value={backgroundImage}
+            onChange={setBackgroundImage}
+          />
           <ToolRadio value={tool} onChange={setTool} />
           <ColorRadio value={color} onChange={setColor} />
           <ShapeRadio value={tool} onChange={setTool} />
-          <div ref={whiteboardRef} className="min-h-[500px]" />
+          <div ref={whiteboardRef} className="min-h-[500px] border" />
         </div>
       </div>
     </form>

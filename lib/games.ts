@@ -54,19 +54,34 @@ export const POPULAR_GAMES: Game[] = [
     title: 'Lost Ark',
     logoSrc: 'https://static.overwolf.com/GameIcons/21864.png',
     gameClassId: 21864,
-    backgroundImages: [],
+    backgroundImages: [
+      {
+        label: 'Brightwood',
+        value: '/new_world/brightwood.webp',
+      },
+    ],
   },
   {
     title: 'Songs of Conquest',
     logoSrc: 'https://static.overwolf.com/GameIcons/21986.png',
     gameClassId: 21986,
-    backgroundImages: [],
+    backgroundImages: [
+      {
+        label: 'Brightwood',
+        value: '/new_world/brightwood.webp',
+      },
+    ],
   },
   {
     title: 'Valorant',
     logoSrc: 'https://static.overwolf.com/GameIcons/21640.png',
     gameClassId: 21640,
-    backgroundImages: [],
+    backgroundImages: [
+      {
+        label: 'Brightwood',
+        value: '/new_world/brightwood.webp',
+      },
+    ],
   },
 ].sort((a, b) => {
   return a.title.localeCompare(b.title);

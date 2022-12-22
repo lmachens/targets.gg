@@ -9,7 +9,7 @@ type ColorRadioProps = {
 
 export default function ColorRadio({ value, onChange }: ColorRadioProps) {
   return (
-    <>
+    <div className="flex gap-2">
       {Object.entries(DEFAULT_COLORS).map(([key, values]) => (
         <ActionIcon
           key={key}
@@ -20,6 +20,6 @@ export default function ColorRadio({ value, onChange }: ColorRadioProps) {
           <ColorSwatch color={values[6]} />
         </ActionIcon>
       ))}
-    </>
+    </div>
   );
 }

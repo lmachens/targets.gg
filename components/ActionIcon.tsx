@@ -14,8 +14,13 @@ export default function ActionIcon({
 }: ActionIconProps) {
   return (
     <button
+      type="button"
       {...props}
-      className={cn('', className, variant === 'filled' && 'bg-gray-600')}
+      className={cn(
+        'rounded-full p-1',
+        className,
+        variant === 'filled' && 'bg-gray-600'
+      )}
     >
       {children}
     </button>

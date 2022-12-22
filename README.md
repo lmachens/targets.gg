@@ -1,34 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Tactics.gg
 
-## Getting Started
+An interactive tactical whiteboard which allows you to prepare your next competitive match, raid or war.
 
-First, run the development server:
+**This app is in a very early state of development**
 
-```bash
+## Development
+
+1. Install dependencies
+
+```sh
+npm install
+```
+
+2. Copy `.env.example` to `.env` and update the variables
+
+```sh
+cp .env.example .env
+```
+
+3. Run the development server
+
+```sh
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+The code-base is highly inspired by the [Taxonomy](https://github.com/shadcn/taxonomy) project.
+To learn more about the stack used in this project, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js](https://nextjs.org/) - the React Framework used in this project
+- [Next.js `app` directory](https://beta.nextjs.org/docs/getting-started) - React Server Components, Streaming, new data fetching and more
+- [Tailwind CSS](https://tailwindcss.com/) - a utility first CSS Framework
+- [Radix UI](https://www.radix-ui.com/) - unstyled, accessible UI components
+- [Auth.js](https://authjs.dev/) - authentication for the Web
+- [Prisma](https://www.prisma.io/) - Node.js and TypeScript ORM
+- [PlanetScale](https://planetscale.com/) - serverless MySQL platform
+- [Zod](https://zod.dev/) - TypeScript-first schema validation
+- [TypeScript](https://www.typescriptlang.org/) - strongly typed programming language
+- [Vercel](https://vercel.app/) - deployment platform from the creators of Next.js
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Licensed under the [MIT license](https://github.com/lmachens/tactics.gg/blob/main/LICENSE.md).

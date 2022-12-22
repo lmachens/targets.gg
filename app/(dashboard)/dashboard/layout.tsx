@@ -1,10 +1,10 @@
-import { notFound } from "next/navigation";
-import { getCurrentUser } from "lib/session";
-import type { ReactNode } from "react";
-import MainNav from "components/MainNav";
-import dashboardConfig from "config/dashboard";
-import DashboardNav from "components/dashboard/Nav";
-import UserAccountNav from "components/dashboard/UserAccountNav";
+import { notFound } from 'next/navigation';
+import { getCurrentUser } from 'lib/session';
+import type { ReactNode } from 'react';
+import MainNav from 'components/MainNav';
+import dashboardConfig from 'config/dashboard';
+import DashboardNav from 'components/dashboard/Nav';
+import UserAccountNav from 'components/dashboard/UserAccountNav';
 
 export default async function DashboardLayout({
   children,
@@ -22,13 +22,7 @@ export default async function DashboardLayout({
       <header className="container sticky top-0 z-40">
         <div className="flex h-16 items-center justify-between py-4">
           <MainNav items={dashboardConfig.mainNav} />
-          <UserAccountNav
-            user={{
-              name: user.name,
-              image: user.image,
-              email: user.email,
-            }}
-          />
+          <UserAccountNav user={user} />
         </div>
       </header>
       <div className="container grid gap-12 md:grid-cols-[200px_1fr]">

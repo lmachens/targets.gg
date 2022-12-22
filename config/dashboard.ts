@@ -5,16 +5,12 @@ const dashboardConfig: DashboardConfig = {
     {
       title: 'Documentation',
       href: '/docs',
-    },
-    {
-      title: 'Support',
-      href: '/support',
       disabled: true,
     },
   ],
   sidebarNav: [
     {
-      title: 'Discover',
+      title: 'Tactics',
       href: '/dashboard',
       icon: 'discover',
     },

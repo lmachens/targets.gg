@@ -6,7 +6,7 @@ import TacticItem from 'components/dashboard/TacticItem';
 export default function DashboardLoading() {
   return (
     <DashboardShell>
-      <DashboardHeader heading="Posts" text="Create and manage posts.">
+      <DashboardHeader heading="Posts" text="Create and manage tactics.">
         <TacticCreateButton />
       </DashboardHeader>
       <div className="divide-y divide-neutral-200 rounded-md border border-slate-200">

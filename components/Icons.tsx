@@ -38,6 +38,7 @@ const Icons = {
   tactic: IconArrowRampRight,
   add: IconPlus,
   warning: IconAlertTriangle,
+  logo: IconArrowRampRight,
 };
 
 export default Icons;

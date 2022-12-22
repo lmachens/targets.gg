@@ -8,7 +8,6 @@ import type { MainNavItem } from 'types';
 import { cn } from 'lib/utils';
 import MobileNav from 'components/MobileNav';
 import siteConfig from 'config/site';
-import IconLogo from './IconLogo';
 import Icons from './Icons';
 
 type MainNavProps = {
@@ -23,7 +22,7 @@ export default function MainNav({ items, children }: MainNavProps) {
   return (
     <div className="flex gap-6 md:gap-10">
       <Link href="/" className="hidden items-center space-x-2 md:flex">
-        <IconLogo />
+        <Icons.logo />
         <span className="hidden font-bold sm:inline-block">
           {siteConfig.name}
         </span>

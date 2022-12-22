@@ -1,4 +1,5 @@
 import MainNav from 'components/MainNav';
+import SiteFooter from 'components/SiteFooter';
 import marketingConfig from 'config/marketing';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
@@ -24,7 +25,7 @@ export default async function MarketingLayout({
         </div>
       </header>
       <main className="flex-1">{children}</main>
-      {/* <SiteFooter /> */}
+      <SiteFooter />
     </div>
   );
 }

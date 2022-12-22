@@ -9,7 +9,7 @@ export default function OpenSource() {
           Proudly Open Source
         </h2>
         <p className="max-w-[85%] leading-normal text-slate-600 dark:text-slate-300 sm:text-lg sm:leading-7">
-          Tactics.gg is open source and powered by open source software. The
+          Targets.gg is open source and powered by open source software. The
           code is available on{' '}
           <Link
             href={siteConfig.links.github}

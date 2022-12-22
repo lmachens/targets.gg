@@ -1,4 +1,4 @@
-# Tactics.gg
+# Targets.gg
 
 An interactive tactical whiteboard which allows you to prepare your next competitive match, raid or war.
 
@@ -44,4 +44,4 @@ To learn more about the stack used in this project, take a look at the following
 
 ## License
 
-Licensed under the [MIT license](https://github.com/lmachens/tactics.gg/blob/main/LICENSE.md).
+Licensed under the [MIT license](https://github.com/lmachens/targets.gg/blob/main/LICENSE.md).
